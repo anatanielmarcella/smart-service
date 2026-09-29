@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="veiculos.css">
+    <title>Smart Service — Veículos</title>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-nome">Smart Service</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="calendar-days"></i>
+                    <span>Agenda</span>
+                </a>
+                <a href="veiculos.html" class="nav-item active">
+                    <i data-lucide="car"></i>
+                    <span>Veículos</span>
+                </a>
+                <a href="perfil.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+            <a href="index.html" class="nav-item sair">
+                <i data-lucide="log-out"></i>
+                <span>Sair</span>
+            </a>
+        </aside>
+
+        <div class="main" id="main">
+
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-btn" onclick="toggleSidebar()">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1>Agenda de Serviços</h1>
+                </div>
+                <div class="header-right">
+                    </button>
+                    <div class="user-info">
+                        <div class="user-avatar" id="header-avatar">U</div>
+                        <div class="user-text">
+                            <span class="user-nome" id="header-nome"></span>
+                            <span class="user-role" id="header-role"></span>
+                        </div>
+                    </div>
+            </header>
+
+            <div class="veiculos-container">
+
+                <!-- Lista de veículos -->
+                <div class="veiculos-lista" id="veiculos-lista"></div>
+
+                <!-- Botão adicionar -->
+                <button class="btn-add-veiculo" onclick="abrirModalVeiculo()">
+                    <i data-lucide="plus"></i>
+                    Adicionar Veículo
+                </button>
+
+            </div>
+
+            <!-- MODAL OVERLAY -->
+            <div class="modal-overlay" id="modal-overlay" onclick="fecharModalVeiculo()"></div>
+
+            <!-- MODAL CADASTRO -->
+            <div class="modal" id="modal-veiculo">
+
+                <div class="modal-header">
+                    <h2 id="modal-titulo">Adicionar Veículo</h2>
+                    <button class="modal-fechar" onclick="fecharModalVeiculo()">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <p class="passo-desc">Preencha os dados do veículo para cadastrá-lo.</p>
+
+                    <!-- Placa -->
+                    <div class="input-group-modal">
+                        <label class="input-label">Placa <span class="obrigatorio">*</span></label>
+                        <div class="input-veiculo-wrapper">
+                            <i data-lucide="credit-card"></i>
+                            <input type="text" id="v-placa" placeholder="ABC1D23" maxlength="7">
+                        </div>
+                        <span class="erro-msg" id="erro-placa" style="display:none;">Placa obrigatória.</span>
+                    </div>
+
+                    <!-- Chassi -->
+                    <div class="input-group-modal">
+                        <label class="input-label">Chassi <span class="obrigatorio">*</span></label>
+                        <div class="input-veiculo-wrapper">
+                            <i data-lucide="hash"></i>
+                            <input type="text" id="v-chassi" placeholder="9BWZZZ377VT004251" maxlength="17">
+                        </div>
+                        <span class="erro-msg" id="erro-chassi" style="display:none;">Chassi obrigatório.</span>
+                    </div>
+
+                    <!-- Modelo -->
+                    <div class="input-group-modal">
+                        <label class="input-label">Modelo <span class="obrigatorio">*</span></label>
+                        <div class="input-veiculo-wrapper">
+                            <i data-lucide="car"></i>
+                            <select id="v-modelo">
+                                <option value="">Selecione o modelo</option>
+                                <optgroup label="Veículos Nacionais">
+                                    <option value="Gol">Gol</option>
+                                    <option value="Polo">Polo</option>
+                                    <option value="Virtus">Virtus</option>
+                                    <option value="Nivus">Nivus</option>
+                                    <option value="T-Cross">T-Cross</option>
+                                    <option value="Saveiro">Saveiro</option>
+                                    <option value="Voyage">Voyage</option>
+                                    <option value="Up">Up</option>
+                                </optgroup>
+                                <optgroup label="Veículos Premium">
+                                    <option value="Amarok">Amarok</option>
+                                    <option value="Tiguan">Tiguan</option>
+                                    <option value="Taos">Taos</option>
+                                    <option value="Jetta">Jetta</option>
+                                    <option value="Passat">Passat</option>
+                                    <option value="Golf">Golf</option>
+                                    <option value="Arteon">Arteon</option>
+                                    <option value="Touareg">Touareg</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <span class="erro-msg" id="erro-modelo" style="display:none;">Selecione o modelo.</span>
+                    </div>
+
+                    <!-- Preview categoria -->
+                    <div class="categoria-preview" id="categoria-preview" style="display:none;">
+                        <i data-lucide="info"></i>
+                        <span id="categoria-texto"></span>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn-voltar-modal" onclick="fecharModalVeiculo()">
+                        Cancelar
+                    </button>
+                    <button class="btn-confirmar-modal" onclick="salvarVeiculo()">
+                        <i data-lucide="check"></i>
+                        Salvar Veículo
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- MODAL CONFIRMAR EXCLUSÃO -->
+            <div class="modal modal-pequeno" id="modal-excluir" style="display:none;">
+                <div class="modal-header">
+                    <h2>Remover Veículo</h2>
+                    <button class="modal-fechar" onclick="fecharModalExcluir()">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="passo-desc">Tem certeza que deseja remover este veículo? Esta ação não pode ser desfeita.
+                    </p>
+                    <div class="veiculo-excluir-preview" id="veiculo-excluir-preview"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-voltar-modal" onclick="fecharModalExcluir()">Cancelar</button>
+                    <button class="btn-excluir-modal" onclick="confirmarExclusao()">
+                        <i data-lucide="trash-2"></i>
+                        Remover
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="veiculos.js"></script>
+    <script>lucide.createIcons();</script>
+
+</body>
+
+</html>

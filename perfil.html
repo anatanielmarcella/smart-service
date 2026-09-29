@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="perfil.css">
+    <title>Smart Service — Perfil</title>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-nome">Smart Service</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="calendar-days"></i>
+                    <span>Agenda</span>
+                </a>
+                <a href="veiculos.html" class="nav-item">
+                    <i data-lucide="car"></i>
+                    <span>Veículos</span>
+                </a>
+                <a href="perfil.html" class="nav-item active">
+                    <i data-lucide="user"></i>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+            <a href="index.html" class="nav-item sair">
+                <i data-lucide="log-out"></i>
+                <span>Sair</span>
+            </a>
+        </aside>
+
+        <div class="main" id="main">
+
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-btn" onclick="toggleSidebar()">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1>Agenda de Serviços</h1>
+                </div>
+                <div class="header-right">
+                    </button>
+                    <div class="user-info">
+                        <div class="user-avatar" id="header-avatar">U</div>
+                        <div class="user-text">
+                            <span class="user-nome" id="header-nome"></span>
+                            <span class="user-role" id="header-role"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="perfil-container">
+
+                <!-- Card foto + nome -->
+                <div class="perfil-card perfil-header-card">
+                    <div class="perfil-foto-wrapper">
+                        <div class="perfil-foto" id="perfil-foto">
+                            <span id="perfil-inicial">M</span>
+                            <img id="perfil-img" src="" alt="" style="display:none;">
+                        </div>
+                    </div>
+                    <div class="perfil-header-info">
+                        <h2 id="perfil-nome-display"></h2>
+                        <span class="perfil-badge" id="perfil-tipo-display"></span>
+                    </div>
+                </div>
+
+                <!-- Card dados pessoais -->
+                <div class="perfil-card">
+                    <div class="perfil-card-header">
+                        <h3>Dados Pessoais</h3>
+                        <button class="btn-editar-perfil" id="btn-editar" onclick="toggleEdicao()">
+                            <i data-lucide="pencil"></i>
+                            Editar
+                        </button>
+                    </div>
+
+                    <div class="perfil-campos">
+
+                        <div class="perfil-campo">
+                            <label>Nome completo</label>
+                            <div class="campo-wrapper">
+                                <i data-lucide="user"></i>
+                                <input type="text" id="campo-nome" value="" disabled>
+                            </div>
+                        </div>
+
+                        <div class="perfil-campo">
+                            <label>E-mail</label>
+                            <div class="campo-wrapper">
+                                <i data-lucide="mail"></i>
+                                <input type="email" id="campo-email" value="" disabled>
+                            </div>
+                        </div>
+
+                        <div class="perfil-campo">
+                            <label>Telefone</label>
+                            <div class="campo-wrapper">
+                                <i data-lucide="phone"></i>
+                                <input type="text" id="campo-telefone" value="" disabled>
+                            </div>
+                        </div>
+
+                        <div class="perfil-campo">
+                            <label>Tipo de conta</label>
+                            <div class="campo-wrapper">
+                                <i data-lucide="shield"></i>
+                                <input type="text" id="campo-tipo" value="" disabled>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Botões de ação (aparecem só no modo edição) -->
+                    <div class="perfil-acoes" id="perfil-acoes" style="display:none;">
+                        <button class="btn-cancelar-perfil" onclick="cancelarEdicao()">Cancelar</button>
+                        <button class="btn-salvar-perfil" onclick="salvarPerfil()">
+                            <i data-lucide="check"></i>
+                            Salvar
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Card alterar senha -->
+                <div class="perfil-card">
+                    <div class="perfil-card-header">
+                        <h3>Alterar Senha</h3>
+                    </div>
+
+                    <div class="perfil-campos">
+
+                        <div class="perfil-campo">
+                            <label>Senha atual</label>
+                            <div class="campo-wrapper">
+                                <i data-lucide="lock"></i>
+                                <input type="password" id="senha-atual" placeholder="Digite sua senha atual">
+                                <span class="toggle-senha" onclick="toggleSenha('senha-atual', this)">
+                                    <i data-lucide="eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="perfil-campo">
+                            <label>Nova senha</label>
+                            <div class="campo-wrapper">
+                                <i data-lucide="lock"></i>
+                                <input type="password" id="senha-nova" placeholder="Digite a nova senha">
+                                <span class="toggle-senha" onclick="toggleSenha('senha-nova', this)">
+                                    <i data-lucide="eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="perfil-campo">
+                            <label>Confirmar nova senha</label>
+                            <div class="campo-wrapper">
+                                <i data-lucide="lock"></i>
+                                <input type="password" id="senha-confirmar" placeholder="Confirme a nova senha">
+                                <span class="toggle-senha" onclick="toggleSenha('senha-confirmar', this)">
+                                    <i data-lucide="eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="perfil-acoes">
+                        <button class="btn-salvar-perfil" onclick="alterarSenha()">
+                            <i data-lucide="check"></i>
+                            Alterar Senha
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="perfil.js"></script>
+    <script>lucide.createIcons();</script>
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="confirmacao.css">
+    <title>Smart Service — Confirmação</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="left-side">
+            <div class="brand">
+                <h2>Smart Service</h2>
+            </div>
+            <img src="img/vw-nivus.png" alt="vw-nivus">
+        </div>
+
+        <div class="right-side right-side-confirmacao">
+
+            <!-- TELA 1: Confirmação -->
+            <div class="login-box confirmacao-box" id="tela-confirmacao">
+
+                <h1>Confirme seus dados</h1>
+                <p>Revise suas informações antes de concluir.</p>
+
+                <div class="secao-dados">
+                    <div class="secao-header">
+                        <span class="secao-titulo">Dados pessoais</span>
+                    </div>
+                    <div class="dados-texto">
+                        <p id="conf-nome-cpf"></p>
+                        <p id="conf-contato"></p>
+                        <p id="conf-endereco"></p>
+                    </div>
+                </div>
+
+                <div class="termos">
+                    <input type="checkbox" id="termos-check">
+                    <label for="termos-check">
+                        Li e aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>.
+                    </label>
+                </div>
+
+                <button class="btn-confirmar" onclick="confirmarCadastro()">
+                    Criar conta <i data-lucide="check"></i>
+                </button>
+
+                <a href="cadastro.html" class="voltar-link">
+                    <i data-lucide="arrow-left"></i> Voltar
+                </a>
+
+            </div>
+
+            <!-- TELA 2: Sucesso -->
+            <div class="login-box sucesso-box" id="tela-sucesso" style="display:none;">
+
+                <div class="sucesso-icone">
+                    <i data-lucide="check"></i>
+                </div>
+
+                <h1>Cadastro realizado<br>com sucesso!</h1>
+                <p>Agora você já pode agendar serviços<br>e acompanhar seu Volkswagen.</p>
+
+                <a href="index.html" class="btn-login">Ir para o login</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="confirmacao.js"></script>
+    <script>lucide.createIcons();</script>
+
+</body>
+</html>

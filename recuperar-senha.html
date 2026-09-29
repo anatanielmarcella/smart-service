@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="recuperar-senha.css">
+    <title>VW Smart Service — Recuperar senha</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="left-side">
+            <div class="brand">
+                <img src="img/LOGOVW.png" alt="LOGOVW">
+                <h2>VW Smart Service</h2>
+            </div>
+            <img src="img/vw-nivus.png" alt="vw-nivus">
+        </div>
+
+        <div class="right-side">
+
+            <!--Formulário de recuperação de senha-->
+            <div class="login-box" id="tela-recuperar">
+
+                <div class="recuperar-icone">
+                    <i data-lucide="lock-keyhole"></i>
+                </div>
+
+                <h1>Esqueceu sua senha?</h1>
+                <p>Digite seu e-mail e enviaremos um link para você redefinir sua senha.</p>
+
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="mail"></i>
+                        <input type="email" id="email" placeholder="Digite seu e-mail">
+                    </div>
+                </div>
+
+                <button type="button" onclick="enviarRecuperacao()">
+                    Enviar link
+                </button>
+
+                <a href="index.html" class="voltar-link">
+                    <i data-lucide="arrow-left"></i> Voltar ao login
+                </a>
+
+            </div>
+
+            <!-- TELA 2: Confirmação de envio -->
+            <div class="login-box email-enviado-box" id="tela-confirmacao" style="display:none;">
+
+                <div class="enviado-icone">
+                    <i data-lucide="mail-check"></i>
+                </div>
+
+                <h1>Verifique seu e-mail!</h1>
+                <p>Enviamos um link de recuperação para <span id="email-enviado" class="email-destaque"></span>. Verifique sua caixa de entrada.</p>
+
+                <a href="index.html" class="btn-voltar-login">Voltar ao login</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="recuperar-senha.js"></script>
+    <script>lucide.createIcons();</script>
+
+</body>
+</html>

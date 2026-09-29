@@ -1,0 +1,98 @@
+.btn-confirmar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-confirmar svg {
+    width: 18px;
+    height: 18px;
+    stroke: white;
+    stroke-width: 2.5;
+    flex-shrink: 0;
+}
+
+.voltar-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #888;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.voltar-link svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    flex-shrink: 0;
+}
+
+.voltar-link:hover {
+    color: #003da5;
+}
+
+.sucesso-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 60px 50px;
+}
+
+.sucesso-icone {
+    width: 80px;
+    height: 80px;
+    background: #003da5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.sucesso-icone svg {
+    width: 36px;
+    height: 36px;
+    stroke: white;
+    stroke-width: 2.5;
+}
+
+.sucesso-box h1 {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.sucesso-box p {
+    margin-bottom: 32px;
+    background: none;
+    color: #666;
+}
+
+.btn-login {
+    width: 100%;
+    height: 57px;
+    background: #003da5;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.btn-login {
+    color: white !important;
+}
+
+.btn-login:hover {
+    background: #002d7a;
+    color: white !important;
+    opacity: 1 !important;
+    transform: translateY(-2px);
+}

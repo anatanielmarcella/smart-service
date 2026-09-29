@@ -1,0 +1,41 @@
+.right-side-cadastro {
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding: 40px;
+}
+
+.cadastro-box {
+    margin: auto 0;
+    padding: 40px 50px 30px 50px;
+}
+
+.input-row {
+    display: flex;
+    gap: 16px;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
+
+.login-link {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #003da5;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.login-link a:hover {
+    opacity: 0.7;
+}
+
+.cadastro-box .input-group {
+    margin-bottom: 12px;
+}

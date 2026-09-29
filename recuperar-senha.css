@@ -1,0 +1,108 @@
+.recuperar-icone {
+    width: 64px;
+    height: 64px;
+    background: #eef2ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.recuperar-icone svg {
+    width: 28px;
+    height: 28px;
+    stroke: #003da5;
+    stroke-width: 1.5;
+}
+
+.login-box h1 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.voltar-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #888;
+    text-decoration: none;
+    transition: 0.3s;
+    justify-content: center;
+}
+
+.voltar-link:hover {
+    color: #003da5;
+}
+
+.voltar-link svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+}
+
+/* Tela de confirmação */
+.email-enviado-box {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.enviado-icone {
+    width: 64px;
+    height: 64px;
+    background: #eef2ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.enviado-icone svg {
+    width: 28px;
+    height: 28px;
+    stroke: #003da5;
+    stroke-width: 1.5;
+}
+
+.email-destaque {
+    color: #003da5;
+    font-weight: 600;
+}
+
+.btn-voltar-login {
+    width: 100%;
+    height: 57px;
+    background: #003da5;
+    color: white !important;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    margin-top: 8px;
+}
+
+.btn-voltar-login:hover {
+    background: #002d7a;
+    opacity: 1 !important;
+    transform: translateY(-2px);
+}
+
+.recuperar-icone {
+    align-self: center; 
+}
+
+.login-box {
+    text-align: center;
+}
+
+.input-group {
+    text-align: left; 
+}

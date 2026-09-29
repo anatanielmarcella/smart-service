@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Smart Service</title>
+</head>
+
+<body>
+
+    <!--Container principal (Vai conter TODA a tela)-->
+    <div class="container">
+
+        <!--Container secundário (Vai conter imagem, logo e texto bonito)-->
+        <div class="left-side">
+
+            <!--Brand (Logo e h2)-->
+            <div class="brand">
+                     
+                <!--Título secundário-->
+                <h2>Smart Service</h2>
+        
+                </div>
+
+            <!--Adiciona a imagem de fundo-->
+            <img src="img/vw-nivus.png" alt="vw-nivus">
+
+        </div>
+
+        <!--Container terciário (Vai conter login, inputs e botão)-->
+        <div class="right-side">
+
+            <!--Div criada para agrupar elementos de login-->
+            <div class="login-box">
+
+                <!--Título inicial para tela de login-->
+                <h1>Que bom te ver por aqui!</h1>
+
+                <!--Complemento referente ao H1-->
+                <p>Faça login para acessar sua conta<br>e <span>cuidar do seu veículo</span></p>
+
+                <!--Formulário de login-->
+                <form action="login" method="post">
+
+                    <!--Div criada para agrupar elementos de input (e-mail)-->
+                    <div class="input-group">
+
+                        <label for="email">E-mail</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="mail"></i>
+                            <input type="email" id="email" name="email" placeholder="Digite seu e-mail">
+                        </div>
+
+                    </div>
+
+                    <!--Div criada para agrupar elementos de input (senha)-->
+                    <div class="input-group">
+
+                        <label for="password">Senha</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Digite sua senha">
+                            <span class="toggle-password" onclick="togglePassword()">
+                                <i data-lucide="eye" id="eye-icon"></i>
+                            </span>
+                        </div>
+
+                        <!--Link para recuperar senha-->
+                        <a href="recuperar-senha.html" class="forgot-password">Esqueci minha senha</a>
+
+                    </div>
+
+                    <!--Botão de login-->
+                    <button type="button" onclick="validarLogin()">Entrar</button>
+
+                </form>
+
+                <!--Título que divide área para clientes com cadastro, dos clientes que querem realizar o cadastro-->
+                <div class="divider">
+
+                    <span>ou</span>
+
+                </div>
+
+                <!--Link para criar nova conta-->
+                <a href="cadastro.html" class="create-account">
+                    Criar nova conta
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+                    <script>lucide.createIcons();</script>
+                    <script src="script.js"></script>
+</body>
+
+</html>

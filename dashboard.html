@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Smart Service — Dashboard</title>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-nome">Smart Service</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <i data-lucide="calendar-days"></i>
+                    <span>Agenda</span>
+                </a>
+                <a href="veiculos.html" class="nav-item">
+                    <i data-lucide="car"></i>
+                    <span>Veículos</span>
+                </a>
+                <a href="perfil.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+            <a href="index.html" onclick="logout()" class="nav-item sair">
+                <i data-lucide="log-out"></i>
+                <span>Sair</span>
+            </a>
+        </aside>
+
+        <div class="main" id="main">
+
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-btn" onclick="toggleSidebar()">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1>Agenda de Serviços</h1>
+                </div>
+                <div class="header-right">
+                    </button>
+                    <div class="user-info">
+                        <div class="user-avatar" id="header-avatar">U</div>
+                        <div class="user-text">
+                            <span class="user-nome" id="header-nome"></span>
+                            <span class="user-role" id="header-role"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <button class="btn-hoje" onclick="irParaHoje()">Hoje</button>
+                    <div class="date-nav">
+                        <button onclick="navegarDia(-1)"><i data-lucide="chevron-left"></i></button>
+                        <span id="data-atual"></span>
+                        <button onclick="navegarDia(1)"><i data-lucide="chevron-right"></i></button>
+                    </div>
+                    <div class="calendario-wrapper">
+                        <button class="btn-calendario" onclick="toggleCalendario()">
+                            <i data-lucide="calendar"></i>
+                        </button>
+                        <div class="mini-calendario" id="mini-calendario" style="display:none;">
+                            <div class="cal-header">
+                                <button onclick="navegarMesCal(-1)"><i data-lucide="chevron-left"></i></button>
+                                <span id="cal-mes-ano"></span>
+                                <button onclick="navegarMesCalendario(1)"><i data-lucide="chevron-right"></i></button>
+                            </div>
+                            <div class="cal-dias-semana">
+                                <span>Seg</span><span>Ter</span><span>Qua</span>
+                                <span>Qui</span><span>Sex</span>
+                            </div>
+                            <div class="cal-grid" id="cal-grid"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <button class="btn-novo" onclick="abrirModal()">
+                        <i data-lucide="plus"></i>
+                        Novo Agendamento
+                    </button>
+                </div>
+            </div>
+
+            <div class="agenda-container">
+                <div class="agenda-grid" id="agenda-grid">
+
+                    <div class="col-horarios">
+                        <div class="col-header"></div>
+                        <div class="horario">08:00</div>
+                        <div class="horario">09:00</div>
+                        <div class="horario">10:00</div>
+                        <div class="horario">11:00</div>
+                        <div class="horario">12:00</div>
+                        <div class="horario">13:00</div>
+                        <div class="horario">14:00</div>
+                        <div class="horario">15:00</div>
+                        <div class="horario">16:00</div>
+                        <div class="horario">17:00</div>
+                        <div class="horario">18:00</div>
+
+                    </div>
+
+                    <!-- Colunas dos atendentes geradas pelo JS -->
+                    <div id="colunas-atendentes" style="display:contents;"></div>
+
+                </div>
+
+                <div class="legenda">
+                    <div class="legenda-item"><span class="dot revisao"></span> Revisão</div>
+                    <div class="legenda-item"><span class="dot diagnostico"></span> Diagnóstico</div>
+                    <div class="legenda-item"><span class="dot alinhamento"></span> Alinhamento e Balanceamento</div>
+                    <div class="legenda-item"><span class="dot troca-pecas"></span> Troca de Peças</div>
+                    <div class="legenda-item"><span class="dot recall"></span> Campanha / Recall</div>
+                    <div class="legenda-item"><span class="dot reparo"></span> Reparo Repetitivo</div>
+                    <div class="legenda-item"><span class="dot lavagem"></span> Lavagem</div>
+                    <div class="legenda-item"><span class="dot adicionais"></span> Serviços Adicionais</div>
+                    <div class="legenda-item"><span class="dot internos"></span> Veículos Internos</div>
+                </div>
+            </div>
+
+            <!-- MODAL OVERLAY -->
+            <div class="modal-overlay" id="modal-overlay" onclick="fecharModal()"></div>
+
+            <!-- MODAL AGENDAMENTO -->
+            <div class="modal" id="modal-agendamento">
+
+                <div class="modal-header">
+                    <h2>Novo Agendamento</h2>
+                    <button class="modal-fechar" onclick="fecharModal()">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <div class="steps">
+                    <div class="step active" id="step-1">
+                        <span class="step-num">1</span>
+                        <span class="step-label">Veículo</span>
+                    </div>
+                    <div class="step-linha"></div>
+                    <div class="step" id="step-2">
+                        <span class="step-num">2</span>
+                        <span class="step-label">Serviço</span>
+                    </div>
+                    <div class="step-linha"></div>
+                    <div class="step" id="step-3">
+                        <span class="step-num">3</span>
+                        <span class="step-label">Detalhes</span>
+                    </div>
+                    <div class="step-linha"></div>
+                    <div class="step" id="step-4">
+                        <span class="step-num">4</span>
+                        <span class="step-label">Horário</span>
+                    </div>
+                    <div class="step-linha"></div>
+                    <div class="step" id="step-5">
+                        <span class="step-num">5</span>
+                        <span class="step-label">Confirmar</span>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- PASSO 1: Veículo -->
+                    <div class="passo" id="passo-1">
+                        <h3>Selecione o veículo</h3>
+                        <p class="passo-desc">Escolha um dos veículos cadastrados na sua conta.</p>
+                        <div class="veiculo-lista" id="veiculo-lista"></div>
+                    </div>
+
+                    <!-- PASSO 2: Serviço -->
+                    <div class="passo" id="passo-2" style="display:none;">
+                        <h3>Selecione o serviço</h3>
+                        <p class="passo-desc">Escolha o tipo de serviço que deseja agendar.</p>
+                        <div class="servico-lista">
+                            <div class="servico-card" onclick="selecionarServico('revisao')">
+                                <div class="servico-dot revisao"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Revisão Periódica</span>
+                                    <span class="servico-desc">Manutenção preventiva conforme km ou tempo</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card" onclick="selecionarServico('diagnostico')">
+                                <div class="servico-dot diagnostico"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Diagnóstico</span>
+                                    <span class="servico-desc">Orçamento no dia do atendimento</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card" onclick="selecionarServico('alinhamento')">
+                                <div class="servico-dot alinhamento"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Alinhamento e Balanceamento</span>
+                                    <span class="servico-desc">Orçamento no dia do atendimento</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card" onclick="selecionarServico('troca-pecas')">
+                                <div class="servico-dot troca-pecas"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Troca de Peças</span>
+                                    <span class="servico-desc">Orçamento no dia do atendimento</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card" onclick="selecionarServico('recall')">
+                                <div class="servico-dot recall"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Campanha / Recall</span>
+                                    <span class="servico-desc">Gratuito</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card" onclick="selecionarServico('reparo')">
+                                <div class="servico-dot reparo"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Reparo Repetitivo</span>
+                                    <span class="servico-desc">Orçamento no dia do atendimento</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card" onclick="selecionarServico('lavagem')">
+                                <div class="servico-dot lavagem"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Lavagem Simples</span>
+                                    <span class="servico-desc">R$ 45,00</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card" onclick="selecionarServico('adicionais')">
+                                <div class="servico-dot adicionais"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Serviços Adicionais</span>
+                                    <span class="servico-desc">Orçamento no dia do atendimento</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                            <div class="servico-card apenas-funcionario" onclick="selecionarServico('internos')">
+                                <div class="servico-dot internos"></div>
+                                <div class="servico-info">
+                                    <span class="servico-nome">Veículos Internos</span>
+                                    <span class="servico-desc">Orçamento no dia do atendimento</span>
+                                </div>
+                                <i data-lucide="chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PASSO 3: Detalhes -->
+                    <div class="passo" id="passo-3" style="display:none;">
+                        <h3 id="passo3-titulo">Detalhes do serviço</h3>
+                        <p class="passo-desc" id="passo3-desc"></p>
+                        <div id="detalhe-revisao" style="display:none;">
+                            <label class="input-label">Selecione a revisão</label>
+                            <div class="revisao-lista" id="revisao-lista"></div>
+                            <div class="itens-revisao" id="itens-revisao" style="display:none;">
+                                <h4>Itens incluídos:</h4>
+                                <ul id="lista-itens"></ul>
+                                <div class="valor-revisao" id="valor-revisao"></div>
+                            </div>
+                        </div>
+                        <div id="detalhe-alinhamento" style="display:none;">
+                            <label class="input-label">Selecione o serviço</label>
+                            <div class="alin-opcoes" id="alin-opcoes"></div>
+                        </div>
+                        <div class="input-group-modal" id="grupo-observacao">
+                            <label class="input-label">Observação</label>
+                            <textarea id="observacao" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- PASSO 4: Horário -->
+                    <div class="passo" id="passo-4" style="display:none;">
+                        <h3>Escolha data, horário e atendente</h3>
+                        <p class="passo-desc">Selecione quando e com quem deseja ser atendido.</p>
+
+                        <div class="horario-form">
+
+                            <div class="input-group-modal">
+                                <label class="input-label">Data</label>
+                                <input type="date" id="data-agendamento" class="input-data">
+                            </div>
+
+                            <div class="input-group-modal">
+                                <label class="input-label">Horário</label>
+                                <div class="horarios-grid" id="horarios-grid">
+                                    <div class="horario-btn" onclick="selecionarHorario('08:00')">08:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('09:00')">09:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('10:00')">10:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('11:00')">11:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('12:00')">12:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('13:00')">13:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('14:00')">14:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('15:00')">15:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('16:00')">16:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('17:00')">17:00</div>
+                                    <div class="horario-btn" onclick="selecionarHorario('18:00')">18:00</div>
+                                </div>
+                            </div>
+
+                            <div class="input-group-modal">
+                                <label class="input-label">Atendente</label>
+                                <div class="atendente-grid" id="atendente-grid"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- PASSO 5: Confirmar -->
+                    <div class="passo" id="passo-5" style="display:none;">
+                        <h3>Confirme seu agendamento</h3>
+                        <p class="passo-desc">Revise os dados antes de confirmar.</p>
+                        <div class="resumo-agendamento">
+                            <div class="resumo-item">
+                                <span class="resumo-label">Veículo</span>
+                                <span class="resumo-valor" id="res-veiculo"></span>
+                            </div>
+                            <div class="resumo-item">
+                                <span class="resumo-label">Serviço</span>
+                                <span class="resumo-valor" id="res-servico"></span>
+                            </div>
+                            <div class="resumo-item">
+                                <span class="resumo-label">Valor estimado</span>
+                                <span class="resumo-valor" id="res-valor"></span>
+                            </div>
+                            <div class="resumo-item">
+                                <span class="resumo-label">Data</span>
+                                <span class="resumo-valor" id="res-data"></span>
+                            </div>
+                            <div class="resumo-item">
+                                <span class="resumo-label">Horário</span>
+                                <span class="resumo-valor" id="res-horario"></span>
+                            </div>
+                            <div class="resumo-item">
+                                <span class="resumo-label">Atendente</span>
+                                <span class="resumo-valor" id="res-atendente"></span>
+                            </div>
+                            <div class="resumo-item" id="res-obs-grupo" style="display:none;">
+                                <span class="resumo-label">Observação</span>
+                                <span class="resumo-valor" id="res-obs"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn-voltar-modal" id="btn-voltar" onclick="voltarPasso()" style="display:none;">
+                        <i data-lucide="arrow-left"></i> Voltar
+                    </button>
+                    <button class="btn-avancar-modal" id="btn-avancar" onclick="avancarPasso()">
+                        Continuar <i data-lucide="arrow-right"></i>
+                    </button>
+                    <button class="btn-confirmar-modal" id="btn-confirmar" onclick="confirmarAgendamento()"
+                        style="display:none;">
+                        <i data-lucide="check"></i> Confirmar Agendamento
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- MENU CONTEXTO -->
+            <div class="context-menu" id="context-menu" style="display:none;">
+                <!-- Menu para agendamentos -->
+                <div id="menu-agendamento" style="display:none;">
+                    <div class="context-item confirmar" onclick="confirmarAgendamentoContexto()">
+                        <i data-lucide="check-circle"></i> Confirmar
+                    </div>
+                    <div class="context-item cancelar" onclick="cancelarAgendamentoContexto()">
+                        <i data-lucide="x-circle"></i> Cancelar
+                    </div>
+                </div>
+                <!-- Menu para slots vazios (só gerente) -->
+                <div id="menu-slot" style="display:none;">
+                    <div class="context-item bloquear" onclick="bloquearHorario()">
+                        <i data-lucide="lock"></i> Bloquear horário
+                    </div>
+                </div>
+                <!-- Menu para slots bloqueados (só gerente) -->
+                <div id="menu-bloqueado" style="display:none;">
+                    <div class="context-item desbloquear" onclick="desbloquearHorario()">
+                        <i data-lucide="lock-open"></i> Desbloquear horário
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="toast" class="toast">
+            <span id="toast-message"></span>
+        </div>
+
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script>lucide.createIcons();</script>
+
+</body>
+
+</html>
